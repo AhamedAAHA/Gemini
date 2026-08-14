@@ -1,4 +1,4 @@
-import type { BillItem } from "./types";
+import type { BillItem, Bill } from "./types";
 
 export type ReferenceEntry = {
   code: string;
@@ -54,3 +54,11 @@ export const REFERENCE_PRICES: Record<string, ReferenceEntry> = {
   "27447": { code: "27447", description: "Total knee arthroplasty", allowable: 2400, category: "facility" },
   "27130": { code: "27130", description: "Total hip arthroplasty", allowable: 2300, category: "facility" },
 };
+
+export const REFERENCE_RATIO_THRESHOLD = 2.0;
+
+export type BillType = Bill["type"];
+
+export function getReference(code: string): ReferenceEntry | undefined {
+  return REFERENCE_PRICES[code.toUpperCase()];
+}
