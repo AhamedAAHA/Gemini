@@ -74,7 +74,7 @@ export default function ActMoney() {
             />
           </div>
 
-          <p className="mx-auto mt-8 max-w-md font-mono text-xs leading-relaxed text-slate-400">
+          <p className="mx-auto mt-8 max-w-md font-mono text-xs leading-relaxed text-slate-300">
             price matched against the CMS fee schedule · duplicates & phantom totals removed ·
             you shouldn&apos;t pay a cent until it&apos;s fixed
           </p>
