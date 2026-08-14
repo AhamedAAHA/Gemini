@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const LiveScene = dynamic(() => import("./LiveScene"), {
   ssr: false,
@@ -19,7 +19,13 @@ function supportsWebGL(): boolean {
 }
 
 export default function LiveBackground() {
-  const [webgl] = useState(supportsWebGL);
+  // Default to false so the first client render matches the server (fallback),
+  // then swap to the live scene after mount.
+  const [webgl, setWebgl] = useState(false);
+
+  useEffect(() => {
+    setWebgl(supportsWebGL());
+  }, []);
 
   return (
     <div className="fixed inset-0 -z-10">
