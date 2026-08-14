@@ -4,12 +4,12 @@ import { motion } from "motion/react";
 import { usd } from "@/lib/format";
 
 const ITEMS = [
-  { desc: "MRI knee joint, without contrast", billed: 2400 },
-  { desc: "MRI knee joint, without contrast", billed: 2400 },
-  { desc: "Office visit, established, level 3", billed: 320 },
-  { desc: "Medical supplies — non-covered", billed: 225 },
-  { desc: "Office visit, established, level 4", billed: 109 },
-  { desc: "Blood count, automated ×2", billed: 58 },
+  { desc: "MRI knee joint, without contrast", billed: 2400, bad: true },
+  { desc: "MRI knee joint, without contrast", billed: 2400, bad: true },
+  { desc: "Office visit, established, level 3", billed: 320, bad: true },
+  { desc: "Medical supplies — non-covered", billed: 225, bad: true },
+  { desc: "Office visit, established, level 4", billed: 109, bad: false },
+  { desc: "Blood count, automated ×2", billed: 58, bad: true },
 ];
 
 export default function ActAudit() {
@@ -40,17 +40,25 @@ export default function ActAudit() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.45 }}
-                className="relative flex items-center justify-between rounded-lg border border-slate-800 bg-slate-900/60 px-4 py-3"
+                className={`relative flex items-center justify-between rounded-lg border px-4 py-3 transition-colors duration-500 ${
+                  item.bad
+                    ? "border-rose-500/40 bg-rose-500/10 hover:bg-rose-500/15"
+                    : "border-emerald-500/30 bg-emerald-500/5"
+                }`}
               >
                 <span className="font-mono text-xs text-slate-500">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <span className="flex-1 truncate px-3 text-sm text-slate-200">{item.desc}</span>
-                <span className="tabular font-mono text-sm text-slate-300">
+                <span className={`tabular font-mono text-sm ${item.bad ? "text-rose-300" : "text-slate-300"}`}>
                   {usd(item.billed)}
                 </span>
-                <span className="ml-3 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-[10px] font-bold text-slate-950">
-                  ✓
+                <span
+                  className={`ml-3 flex h-5 w-5 items-center justify-center rounded-full text-[10px] font-bold ${
+                    item.bad ? "bg-rose-500 text-slate-950" : "bg-emerald-500 text-slate-950"
+                  }`}
+                >
+                  {item.bad ? "!" : "✓"}
                 </span>
               </motion.div>
             ))}
