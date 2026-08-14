@@ -15,9 +15,19 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "BillScope — find the money you don't owe",
+  title: {
+    default: "BillScope — find the money you don't owe",
+    template: "%s · BillScope",
+  },
   description:
     "Upload a medical bill. BillScope finds the billing errors, shows you the money you don't owe, and drafts the dispute for you.",
+  keywords: ["medical bill", "hospital bill", "audit", "billing errors", "dispute letter"],
+  openGraph: {
+    title: "BillScope — find the money you don't owe",
+    description:
+      "Upload a medical bill. BillScope finds the billing errors, shows you the money you don't owe, and drafts the dispute for you.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
