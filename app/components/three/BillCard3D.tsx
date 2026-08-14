@@ -34,6 +34,7 @@ export default function BillCard3D({
   animated?: boolean;
 }) {
   const group = useRef<THREE.Group>(null);
+  const dots = useRef<(THREE.Mesh | null)[]>([]);
 
   useFrame(({ clock }) => {
     if (!animated) return;
@@ -42,6 +43,12 @@ export default function BillCard3D({
       group.current.rotation.y = Math.sin(t * 0.26) * 0.14;
       group.current.rotation.x = Math.sin(t * 0.2) * 0.04;
     }
+    dots.current.forEach((dot, i) => {
+      if (dot) {
+        const pulse = 0.5 + Math.abs(Math.sin(t * 1.8 + i * 1.7)) * 0.5;
+        (dot.material as THREE.MeshBasicMaterial).opacity = pulse;
+      }
+    });
   });
 
   return (
@@ -94,6 +101,23 @@ export default function BillCard3D({
               <planeGeometry args={[r.amountW, 0.075]} />
               <meshBasicMaterial color={r.error ? "#fda4af" : "#64748b"} />
             </mesh>
+            {r.error && (
+              <mesh
+                ref={(el) => {
+                  dots.current[i] = el;
+                }}
+                position={[r.w / 2 + 0.09 + r.amountW + 0.09, 0, 0.008]}
+              >
+                <planeGeometry args={[0.085, 0.085]} />
+                <meshBasicMaterial color="#fb7185" transparent />
+              </mesh>
+            )}
+            {r.error && (
+              <mesh position={[0, 0, -0.02]}>
+                <planeGeometry args={[r.w + r.amountW + 0.22, 0.11]} />
+                <meshBasicMaterial color="#fb7185" transparent opacity={0.14} />
+              </mesh>
+            )}
           </group>
         ))}
       </group>
