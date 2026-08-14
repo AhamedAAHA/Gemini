@@ -9,7 +9,9 @@ export const metadata: Metadata = {
 export default function AnalyzePage() {
   return (
     <main className="min-h-screen bg-lab">
-      <Analyzer />
+      <div className="pt-24">
+        <Analyzer />
+      </div>
     </main>
   );
 }
