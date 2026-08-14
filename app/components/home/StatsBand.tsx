@@ -13,7 +13,7 @@ export default function StatsBand() {
       <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-6 lg:grid-cols-4">
         {STATS.map((s, i) => (
           <Reveal key={i} delay={i * 0.08} className="text-center">
-            <div className="font-display text-4xl font-bold text-slate-100 sm:text-5xl">{s.value}</div>
+            <div className="font-display text-4xl font-bold text-scan-gradient sm:text-5xl">{s.value}</div>
             <div className="mx-auto mt-2 max-w-[16ch] text-sm leading-snug text-slate-400">{s.label}</div>
           </Reveal>
         ))}
