@@ -1,10 +1,13 @@
 "use client";
 
 import { useRef, useState } from "react";
+import type { SampleBill } from "@/lib/samples";
 
 type UploaderProps = {
   busy: boolean;
+  samples: SampleBill[];
   onAnalyzeText: (text: string, fileName: string) => void;
+  onAnalyzeSample: (sampleId: string) => void;
   error?: string | null;
 };
 
@@ -13,9 +16,16 @@ const PLACEHOLDER = `Paste a medical bill / EOB here.
 The parser understands lines like:
 01  06/10/2026  73721  MRI knee joint without contrast  1  $2,400.00  $497.00  $397.60
 
-Date, code, description, qty, billed, allowed, paid — one line per service.`;
+Date, code, description, qty, billed, allowed, paid — one line per service.
+Or just try a sample bill on the left — they're full of planted errors.`;
 
-export default function Uploader({ busy, onAnalyzeText, error }: UploaderProps) {
+export default function Uploader({
+  busy,
+  samples,
+  onAnalyzeText,
+  onAnalyzeSample,
+  error,
+}: UploaderProps) {
   const [text, setText] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
 
