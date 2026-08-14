@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useMotionValue } from "motion/react";
+import { motion, useMotionValue, useSpring, useReducedMotion } from "motion/react";
 import { cn } from "./cn";
 
 type MagneticProps = {
@@ -11,13 +11,16 @@ type MagneticProps = {
 };
 
 export default function Magnetic({ children, className, strength = 0.25 }: MagneticProps) {
+  const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
+  const sx = useSpring(x, { stiffness: 200, damping: 15 });
+  const sy = useSpring(y, { stiffness: 200, damping: 15 });
 
   const onMove = (e: React.MouseEvent) => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || reduce) return;
     const rect = el.getBoundingClientRect();
     x.set((e.clientX - rect.left - rect.width / 2) * strength);
     y.set((e.clientY - rect.top - rect.height / 2) * strength);
@@ -34,7 +37,7 @@ export default function Magnetic({ children, className, strength = 0.25 }: Magne
       onMouseMove={onMove}
       onMouseLeave={onLeave}
       className={cn("inline-block", className)}
-      style={{ x, y }}
+      style={reduce ? undefined : { x: sx, y: sy }}
     >
       {children}
     </motion.div>
