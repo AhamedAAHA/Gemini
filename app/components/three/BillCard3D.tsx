@@ -2,11 +2,13 @@
 
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
-import { Float } from "@react-three/drei";
+import { Float, Sparkles } from "@react-three/drei";
 import * as THREE from "three";
 
 type Row = { y: number; w: number; amountW: number; x: number; error?: boolean };
 
+// The "bill" rendered as a floating paper card: header strip, line items with
+// right-aligned amounts, red error markers, and a PAST-DUE stamp.
 const ROWS: Row[] = [
   { y: 1.14, w: 1.15, amountW: 0.55, x: -0.42 },
   { y: 0.94, w: 1.5, amountW: 0.55, x: -0.32 },
@@ -34,6 +36,7 @@ export default function BillCard3D({
   animated?: boolean;
 }) {
   const group = useRef<THREE.Group>(null);
+  const scan = useRef<THREE.Mesh>(null);
   const dots = useRef<(THREE.Mesh | null)[]>([]);
 
   useFrame(({ clock }) => {
@@ -42,6 +45,10 @@ export default function BillCard3D({
     if (group.current) {
       group.current.rotation.y = Math.sin(t * 0.26) * 0.14;
       group.current.rotation.x = Math.sin(t * 0.2) * 0.04;
+    }
+    if (scan.current) {
+      scan.current.position.y = Math.sin(t * 1.1) * 1.55;
+      (scan.current.material as THREE.MeshBasicMaterial).opacity = 0.55 + Math.sin(t * 1.1) * 0.2;
     }
     dots.current.forEach((dot, i) => {
       if (dot) {
@@ -136,6 +143,15 @@ export default function BillCard3D({
             <meshBasicMaterial color="#fb7185" transparent opacity={0.55} />
           </mesh>
         </group>
+
+        {/* scanning beam + particles live INSIDE the group so they scale with the card */}
+        <mesh ref={scan} position={[0, 0, 0.35]}>
+          <planeGeometry args={[2.7, 0.07]} />
+          <meshBasicMaterial color="#2dd4bf" transparent opacity={0.7} />
+        </mesh>
+        {particles && (
+          <Sparkles count={70} scale={[9, 6, 4]} size={2.2} speed={0.35} color="#34d399" opacity={0.6} />
+        )}
       </group>
     </Float>
   );
