@@ -10,6 +10,10 @@
   color-scheme: dark;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background-color: #030712;
   color: #e2e8f0;
@@ -128,4 +132,21 @@ body {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #10b981;
+}
+
+/* ---- reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .scan-beam,
+  .scan-pulse {
+    animation: none !important;
+    opacity: 1 !important;
+  }
 }
