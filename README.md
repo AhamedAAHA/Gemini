@@ -66,6 +66,13 @@ cp .env.example .env.local   # optional AWS keys enable Bedrock/DynamoDB
 npm run dev                  # http://localhost:3000
 ```
 
+Check types and build before pushing:
+
+```bash
+npm run typecheck
+npm run build
+```
+
 Open `http://localhost:3000/analyze`, pick a sample bill, and watch the audit.
 
 Without AWS credentials everything runs locally: the regex parser, the rules
@@ -78,7 +85,7 @@ engine, the local Fin replies, and in-memory persistence.
 cd terraform && terraform apply
 
 # 2. Seed the reference price table
-BILLSCOPE_REFERENCE_TABLE=billscope_reference npx tsx scripts/seed-reference.mjs
+BILLSCOPE_REFERENCE_TABLE=billscope_reference npm run seed
 
 # 3. Set env (see .env.example): BILLSCOPE_ANALYSES_TABLE, AWS_ACCESS_KEY_ID, ...
 #    Then photo/PDF uploads route through Bedrock vision and Fin uses Converse.
