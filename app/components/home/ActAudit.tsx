@@ -32,6 +32,7 @@ export default function ActAudit() {
         </motion.div>
 
         <div className="glass-strong relative overflow-hidden rounded-2xl p-2">
+          <div className="scan-beam" />
           <div className="space-y-1.5">
             {ITEMS.map((item, i) => (
               <motion.div
@@ -39,7 +40,7 @@ export default function ActAudit() {
                 initial={{ opacity: 0, x: -18 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.45 }}
+                transition={{ duration: 0.45, delay: i * 0.09 }}
                 className={`relative flex items-center justify-between rounded-lg border px-4 py-3 transition-colors duration-500 ${
                   item.bad
                     ? "border-rose-500/40 bg-rose-500/10 hover:bg-rose-500/15"
