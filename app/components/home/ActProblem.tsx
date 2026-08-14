@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import Reveal from "@/app/components/ui/Reveal";
 
 const CHIPS = [
@@ -11,6 +11,8 @@ const CHIPS = [
 ];
 
 export default function ActProblem() {
+  const reduce = useReducedMotion();
+
   return (
     <section className="relative border-y border-white/5 py-28 sm:py-36">
       <div className="relative mx-auto max-w-5xl px-6 text-center">
@@ -38,7 +40,7 @@ export default function ActProblem() {
             {CHIPS.map((c, i) => (
               <motion.div
                 key={c.label}
-                animate={{ y: [0, -8, 0] }}
+                animate={reduce ? undefined : { y: [0, -8, 0] }}
                 transition={{ repeat: Infinity, duration: 3 + i, ease: "easeInOut" }}
                 className="rounded-lg border border-rose-400/30 bg-rose-500/10 px-4 py-2 font-mono text-xs tracking-wider text-rose-300 backdrop-blur"
               >
