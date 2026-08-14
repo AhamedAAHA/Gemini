@@ -27,6 +27,14 @@ export default function FlagCard({ flag }: { flag: Flag }) {
       <div className="mt-1 font-semibold text-slate-100">{flag.title}</div>
       <div className="mt-2 text-lg font-bold text-rose-300">{usd(flag.overcharge)} disputed</div>
       <p className="mt-2 text-sm leading-relaxed text-slate-300">{flag.explanation}</p>
+      <ul className="mt-2 space-y-1">
+        {flag.evidence.map((e, i) => (
+          <li key={i} className="flex gap-2 text-xs text-slate-400">
+            <span className="text-emerald-400">→</span>
+            <span className="font-mono">{e}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
