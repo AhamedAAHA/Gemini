@@ -66,10 +66,11 @@ cp .env.example .env.local   # optional AWS keys enable Bedrock/DynamoDB
 npm run dev                  # http://localhost:3000
 ```
 
-Check types and build before pushing:
+Check types, tests, and build before pushing:
 
 ```bash
 npm run typecheck
+npm test
 npm run build
 ```
 
