@@ -57,6 +57,11 @@ export const REFERENCE_PRICES: Record<string, ReferenceEntry> = {
 
 export const REFERENCE_RATIO_THRESHOLD = 2.0;
 
+export const BUNDLED_RULES: Record<string, { requires: string; note: string }> = {
+  "36415": { requires: "99213", note: "Routine venipuncture is typically bundled into an office visit and should not be billed separately." },
+  "99024": { requires: "29881", note: "Post-operative care is included in the global surgery period." },
+};
+
 export type BillType = Bill["type"];
 
 export function getReference(code: string): ReferenceEntry | undefined {
