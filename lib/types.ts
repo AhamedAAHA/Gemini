@@ -54,3 +54,24 @@ export type Bill = {
   patientDue?: number;
   items: BillItem[];
 };
+
+export type AnalysisResult = {
+  bill: Bill;
+  flags: Flag[];
+  totalRecoverable: number;
+  score: "clean" | "minor" | "major";
+  parsedBy: "vision" | "regex" | "sample";
+  analyzedBy: "rules" | "rules+semantic";
+  generatedAt: string;
+};
+
+export type ChatMessage = {
+  role: "user" | "assistant";
+  content: string;
+};
+
+export type AgentContext = {
+  bill: Bill;
+  flags: Flag[];
+  totalRecoverable: number;
+};
