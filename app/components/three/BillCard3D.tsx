@@ -120,6 +120,22 @@ export default function BillCard3D({
             )}
           </group>
         ))}
+
+        {/* PAST DUE stamp */}
+        <group position={[0.75, -0.32, 0.03]} rotation={[-0.12, 0, -0.28]}>
+          <mesh>
+            <planeGeometry args={[1.05, 0.46]} />
+            <meshBasicMaterial color="#fb7185" transparent opacity={0.18} />
+          </mesh>
+          <mesh position={[-0.28, 0.06, 0.01]}>
+            <planeGeometry args={[0.62, 0.1]} />
+            <meshBasicMaterial color="#fb7185" transparent opacity={0.55} />
+          </mesh>
+          <mesh position={[-0.28, -0.06, 0.01]}>
+            <planeGeometry args={[0.42, 0.1]} />
+            <meshBasicMaterial color="#fb7185" transparent opacity={0.55} />
+          </mesh>
+        </group>
       </group>
     </Float>
   );
