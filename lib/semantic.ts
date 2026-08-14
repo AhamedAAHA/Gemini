@@ -4,6 +4,24 @@ import { bedrockConfigured } from "./bedrock";
 
 const MODEL = process.env.BILLSCOPE_SEMANTIC_MODEL ?? "anthropic.claude-3-5-haiku-20241022-v1:0";
 
+function extractJson(text: string): unknown {
+  const cleaned = text.replace(/```(?:json)?/gi, "").trim();
+  try {
+    return JSON.parse(cleaned);
+  } catch {
+    const start = cleaned.indexOf("[");
+    const end = cleaned.lastIndexOf("]");
+    if (start >= 0 && end > start) {
+      try {
+        return JSON.parse(cleaned.slice(start, end + 1));
+      } catch {
+        return [];
+      }
+    }
+    return [];
+  }
+}
+
 export async function runSemanticPass(bill: Bill): Promise<Flag[]> {
   if (!bedrockConfigured()) return [];
   const client = new BedrockRuntimeClient({ region: process.env.AWS_REGION ?? "us-east-1" });
@@ -29,7 +47,7 @@ export async function runSemanticPass(bill: Bill): Promise<Flag[]> {
       (resp.output?.message?.content as Array<{ text?: string }> | undefined)
         ?.map((c) => c.text ?? "")
         .join("") ?? "";
-    const parsed = JSON.parse(text.replace(/```(?:json)?/gi, "").trim());
+    const parsed = extractJson(text);
     if (!Array.isArray(parsed)) return [];
     return (parsed as Array<Record<string, unknown>>)
       .filter((f) => f && typeof f.title === "string" && typeof f.overcharge === "number" && f.overcharge > 0)
