@@ -48,6 +48,7 @@ function MainBill({ wide }: { wide: boolean }) {
 
 export default function LiveScene() {
   const wide = useMedia("(min-width: 1024px)");
+  const ultrawide = useMedia("(min-width: 1280px)");
 
   return (
     <Canvas
@@ -62,6 +63,12 @@ export default function LiveScene() {
       <pointLight position={[3, 1, 4]} intensity={0.5} color="#22d3ee" />
       <CameraRig />
       <MainBill wide={wide} />
+      {ultrawide && (
+        <>
+          <BillCard3D position={[-4.8, -1.7, -3.5]} scale={0.55} particles={false} animated={false} />
+          <BillCard3D position={[4.6, 1.9, -4.2]} scale={0.42} particles={false} animated={false} />
+        </>
+      )}
     </Canvas>
   );
 }
