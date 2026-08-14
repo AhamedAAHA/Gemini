@@ -116,3 +116,29 @@ export function parseBillText(raw: string, fileName: string): Bill {
     items,
   };
 }
+
+export function billToText(bill: Bill): string {
+  const rows = bill.items
+    .map(
+      (i) =>
+        `${String(i.line).padStart(2, "0")}  ${i.date ?? ""}  ${i.code ?? ""}  ${i.description}  ${i.quantity}  $${i.amount.toFixed(2)}  $${(i.allowed ?? 0).toFixed(2)}  $${(i.paid ?? 0).toFixed(2)}`
+    )
+    .join("\n");
+
+  return [
+    "EXPLANATION OF BENEFITS",
+    `Member: ${bill.patientName ?? ""}`,
+    `Member ID: ${bill.memberId ?? ""}`,
+    `Provider: ${bill.providerName ?? ""}`,
+    `Date of service: ${bill.serviceDate ?? ""}`,
+    `Statement date: ${bill.statementDate ?? ""}`,
+    "",
+    "Line  Date        Code    Description                               Qty  Billed      Allowed     Paid",
+    rows,
+    "",
+    `TOTAL BILLED: $${bill.totalBilled.toFixed(2)}`,
+    `TOTAL ALLOWED: $${bill.totalAllowed?.toFixed(2) ?? "0.00"}`,
+    `TOTAL PAID: $${bill.totalPaid?.toFixed(2) ?? "0.00"}`,
+    `AMOUNT YOU OWE: $${bill.patientDue?.toFixed(2) ?? "0.00"}`,
+  ].join("\n");
+}
