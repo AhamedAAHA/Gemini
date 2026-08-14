@@ -45,6 +45,26 @@ export default function BillCard3D({
             emissiveIntensity={0.35}
           />
         </mesh>
+        {/* edge glow */}
+        <mesh position={[0, 0, -0.001]}>
+          <planeGeometry args={[2.64, 3.44]} />
+          <meshBasicMaterial color="#0f766e" transparent opacity={0.35} />
+        </mesh>
+
+        {/* provider header strip */}
+        <mesh position={[0, 1.5, 0.02]}>
+          <planeGeometry args={[2.2, 0.34]} />
+          <meshBasicMaterial color="#10b981" transparent opacity={0.85} />
+        </mesh>
+        {/* header "text" hint */}
+        <mesh position={[-0.7, 1.5, 0.03]}>
+          <planeGeometry args={[0.9, 0.09]} />
+          <meshBasicMaterial color="#022c22" />
+        </mesh>
+        <mesh position={[0.62, 1.5, 0.03]}>
+          <planeGeometry args={[0.5, 0.09]} />
+          <meshBasicMaterial color="#022c22" />
+        </mesh>
       </group>
     </Float>
   );
