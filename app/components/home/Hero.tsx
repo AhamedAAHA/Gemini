@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import Link from "next/link";
+import Magnetic from "@/app/components/ui/Magnetic";
 
 export default function Hero() {
   return (
@@ -15,6 +16,11 @@ export default function Hero() {
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           className="max-w-xl"
         >
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-400/10 px-4 py-1.5 text-xs font-medium text-emerald-300 backdrop-blur">
+            <span className="scan-pulse h-1.5 w-1.5 rounded-full bg-emerald-400" />
+            Billing errors cost Americans tens of billions a year
+          </div>
+
           <h1 className="font-display text-5xl font-bold leading-[1.02] tracking-tight sm:text-7xl">
             Upload a hospital bill.
             <br />
@@ -27,15 +33,17 @@ export default function Hero() {
           </p>
 
           <div className="mt-9 flex flex-wrap items-center gap-4">
-            <Link
-              href="/analyze"
-              className="glow-emerald inline-flex items-center gap-2 rounded-xl bg-emerald-500 px-7 py-4 text-base font-bold text-slate-950 transition hover:bg-emerald-400"
-            >
-              Analyze a bill — free
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </Link>
+            <Magnetic>
+              <Link
+                href="/analyze"
+                className="glow-emerald inline-flex items-center gap-2 rounded-xl bg-emerald-500 px-7 py-4 text-base font-bold text-slate-950 transition hover:bg-emerald-400"
+              >
+                Analyze a bill — free
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </Link>
+            </Magnetic>
             <span className="font-mono text-xs text-slate-400">~30 seconds · no signup</span>
           </div>
         </motion.div>
