@@ -109,7 +109,7 @@ export default function AgentChat({ context }: { context: AgentContext }) {
         <div>
           <div className="font-semibold">Fin</div>
           <div className="flex items-center gap-1.5 text-[11px] text-slate-500">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" aria-hidden="true" />
             {busy ? "thinking…" : "online — AI concierge"}
           </div>
         </div>
@@ -157,6 +157,7 @@ export default function AgentChat({ context }: { context: AgentContext }) {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && send(input)}
             placeholder="Ask Fin about your bill…"
+            aria-label="Message Fin"
             className="flex-1 rounded-lg border border-slate-800 bg-slate-950 px-3 py-2 text-sm text-slate-200 outline-none transition focus:border-emerald-500/60"
           />
           <button
