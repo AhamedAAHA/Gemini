@@ -5,6 +5,23 @@ import { useFrame } from "@react-three/fiber";
 import { Float } from "@react-three/drei";
 import * as THREE from "three";
 
+type Row = { y: number; w: number; amountW: number; x: number; error?: boolean };
+
+const ROWS: Row[] = [
+  { y: 1.14, w: 1.15, amountW: 0.55, x: -0.42 },
+  { y: 0.94, w: 1.5, amountW: 0.55, x: -0.32 },
+  { y: 0.72, w: 0.85, amountW: 0.55, x: -0.5 },
+  { y: 0.48, w: 1.3, amountW: 0.55, x: -0.38, error: true },
+  { y: 0.26, w: 1.05, amountW: 0.55, x: -0.44 },
+  { y: 0.02, w: 1.4, amountW: 0.55, x: -0.32, error: true },
+  { y: -0.22, w: 0.8, amountW: 0.55, x: -0.5 },
+  { y: -0.46, w: 1.25, amountW: 0.55, x: -0.36 },
+  { y: -0.68, w: 1.05, amountW: 0.55, x: -0.44, error: true },
+  { y: -0.9, w: 0.9, amountW: 0.55, x: -0.48 },
+  { y: -1.12, w: 1.35, amountW: 0.55, x: -0.34 },
+  { y: -1.32, w: 1.0, amountW: 0.55, x: -0.45 },
+];
+
 export default function BillCard3D({
   position = [0, 0, 0],
   scale = 1,
@@ -65,6 +82,20 @@ export default function BillCard3D({
           <planeGeometry args={[0.5, 0.09]} />
           <meshBasicMaterial color="#022c22" />
         </mesh>
+
+        {/* line items: description bar + right-aligned amount block */}
+        {ROWS.map((r, i) => (
+          <group key={i} position={[0, r.y, 0.02]}>
+            <mesh position={[r.x + r.w / 2, 0, 0]}>
+              <planeGeometry args={[r.w, 0.075]} />
+              <meshBasicMaterial color={r.error ? "#7f1d1d" : "#33415c"} />
+            </mesh>
+            <mesh position={[r.w / 2 + 0.09 + r.amountW / 2, 0, 0.004]}>
+              <planeGeometry args={[r.amountW, 0.075]} />
+              <meshBasicMaterial color={r.error ? "#fda4af" : "#64748b"} />
+            </mesh>
+          </group>
+        ))}
       </group>
     </Float>
   );
