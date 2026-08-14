@@ -1,6 +1,6 @@
 "use client";
 
-import type { AnalysisResult } from "@/lib/types";
+import type { AnalysisResult, Flag } from "@/lib/types";
 import { usd } from "@/lib/format";
 
 export default function BillCard({ result }: { result: AnalysisResult }) {
@@ -62,4 +62,17 @@ export default function BillCard({ result }: { result: AnalysisResult }) {
       </div>
     </section>
   );
+}
+
+export function flagTypeLabel(type: Flag["type"]): string {
+  const labels: Record<Flag["type"], string> = {
+    duplicate: "Duplicate charge",
+    arithmetic: "Math error",
+    inflated: "Inflated price",
+    upcode: "Possible upcoding",
+    bundled: "Bundling violation",
+    "balance-bill": "Non-covered charge",
+    semantic: "Audit finding",
+  };
+  return labels[type];
 }
