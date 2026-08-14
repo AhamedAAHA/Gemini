@@ -1,10 +1,12 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import Magnetic from "@/app/components/ui/Magnetic";
 
 export default function Hero() {
+  const reduce = useReducedMotion();
+
   return (
     <section className="relative flex min-h-[100svh] items-center overflow-hidden">
       <div className="grid-overlay pointer-events-none absolute inset-0" />
@@ -48,6 +50,25 @@ export default function Hero() {
           </div>
         </motion.div>
       </div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.2, duration: 1 }}
+        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2"
+      >
+        <div className="flex flex-col items-center gap-2 text-slate-500">
+          <span className="font-mono text-[11px] uppercase tracking-widest">scroll to audit</span>
+          <motion.div
+            animate={reduce ? undefined : { y: [0, 8, 0] }}
+            transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M12 5v14M6 13l6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </motion.div>
+        </div>
+      </motion.div>
     </section>
   );
 }
