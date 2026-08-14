@@ -40,7 +40,7 @@ export default function Analyzer() {
     return (
       <div className="mx-auto flex max-w-xl flex-col items-center justify-center py-32 text-center">
         <div className="glow-emerald flex h-16 w-16 animate-pulse items-center justify-center rounded-2xl bg-emerald-500/10">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="text-emerald-400">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="text-emerald-400" aria-hidden="true">
             <path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2" strokeLinecap="round" />
             <path d="M8 13v-2a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1z" />
             <path d="M12 13v5M8.5 10.5 7 7M15.5 10.5 17 7" strokeLinecap="round" />
