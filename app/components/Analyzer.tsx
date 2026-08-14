@@ -7,6 +7,8 @@ import Uploader from "./Uploader";
 import SavingsSummary from "./SavingsSummary";
 import BillCard from "./BillCard";
 import FlagCard from "./FlagCard";
+import LetterGenerator from "./LetterGenerator";
+import AgentChat from "./AgentChat";
 
 type Phase = "input" | "parsing" | "results";
 
@@ -53,6 +55,11 @@ export default function Analyzer() {
   }
 
   if (phase === "results" && result) {
+    const context = {
+      bill: result.bill,
+      flags: result.flags,
+      totalRecoverable: result.totalRecoverable,
+    };
     return (
       <div className="mx-auto max-w-6xl space-y-6 px-6 py-10">
         <div className="flex flex-wrap items-center justify-between gap-3">
@@ -92,7 +99,12 @@ export default function Analyzer() {
               )}
             </div>
           </div>
+          <div className="space-y-6">
+            <AgentChat context={context} />
+          </div>
         </div>
+
+        <LetterGenerator result={result} />
       </div>
     );
   }
