@@ -1,8 +1,9 @@
 import type { AgentContext, ChatMessage } from "./types";
 import { draftAppealLetter, callScript, deadlineFor, fmtDate, negotiationChecklist } from "./letters";
 import { getReference } from "./reference-data";
+import { bedrockAgentReply, bedrockConfigured } from "./bedrock";
 
-export async function agentReply(ctx: AgentContext, history: ChatMessage[]): Promise<string> {
+function localReply(ctx: AgentContext, history: ChatMessage[]): string {
   const text = (history[history.length - 1]?.content ?? "").toLowerCase();
 
   if (/(letter|appeal|dispute|write to|formal)/i.test(text)) {
@@ -74,4 +75,16 @@ export async function agentReply(ctx: AgentContext, history: ChatMessage[]): Pro
     ].join("\n");
   }
   return `I can help you understand this bill and fight unfair charges. Try asking: "what's wrong with my bill?", "how much can I save?", "why is this so high?", "draft the dispute letter", or "what do I say on the phone?".`;
+}
+
+export async function agentReply(ctx: AgentContext, history: ChatMessage[]): Promise<string> {
+  const fallback = localReply(ctx, history);
+  if (bedrockConfigured()) {
+    try {
+      return await bedrockAgentReply(ctx, history);
+    } catch {
+      return fallback;
+    }
+  }
+  return fallback;
 }
