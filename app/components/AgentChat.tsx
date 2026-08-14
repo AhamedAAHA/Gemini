@@ -48,7 +48,10 @@ export default function AgentChat({ context }: { context: AgentContext }) {
         </div>
         <div>
           <div className="font-semibold">Fin</div>
-          <div className="text-[11px] text-slate-500">online — AI concierge</div>
+          <div className="flex items-center gap-1.5 text-[11px] text-slate-500">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+            {busy ? "thinking…" : "online — AI concierge"}
+          </div>
         </div>
       </div>
 
