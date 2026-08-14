@@ -1,5 +1,5 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
+import { DynamoDBDocumentClient, PutCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
 import type { AnalysisResult } from "./types";
 
 const TABLE = process.env.BILLSCOPE_ANALYSES_TABLE;
@@ -46,3 +46,22 @@ export async function saveAnalysis(result: AnalysisResult): Promise<"dynamodb" |
     return "memory";
   }
 }
+
+export async function listRecentAnalyses(limit = 20): Promise<AnalysisResult[]> {
+  const client = getClient();
+  if (!client || !TABLE) return memory.slice(-limit).reverse();
+  try {
+    const res = await client.send(
+      new ScanCommand({
+        TableName: TABLE,
+        IndexName: "GSI1",
+        Limit: limit,
+      })
+    );
+    return (res.Items as unknown as AnalysisResult[]) ?? [];
+  } catch {
+    return memory.slice(-limit).reverse();
+  }
+}
+
+export const storageMode = (): "dynamodb" | "memory" => (getClient() ? "dynamodb" : "memory");
