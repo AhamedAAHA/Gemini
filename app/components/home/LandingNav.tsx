@@ -20,7 +20,7 @@ export default function LandingNav() {
         >
           <Logo />
 
-          <nav className="hidden items-center gap-8 text-sm text-slate-400 md:flex">
+          <nav className="hidden items-center gap-8 text-sm text-slate-400 md:flex" aria-label="Sections">
             <a href="#problem" className="transition hover:text-emerald-300">The problem</a>
             <a href="#audit" className="transition hover:text-emerald-300">The audit</a>
             <a href="#money" className="transition hover:text-emerald-300">The money</a>
