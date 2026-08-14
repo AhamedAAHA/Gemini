@@ -5,7 +5,7 @@ export default function LandingNav() {
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       <div className="mx-auto max-w-6xl px-6">
-        <div className="mt-4 flex items-center justify-between rounded-2xl px-5 py-3">
+        <div className="glass-strong mt-4 flex items-center justify-between rounded-2xl px-5 py-3">
           <Logo />
 
           <nav className="hidden items-center gap-8 text-sm text-slate-400 md:flex">
