@@ -5,6 +5,10 @@ import { usd } from "@/lib/format";
 
 export default function SavingsSummary({ result }: { result: AnalysisResult }) {
   const bill = result.bill;
+  const due = bill.patientDue ?? 0;
+  const recoverPct = result.totalRecoverable > 0
+    ? Math.min(100, Math.round((result.totalRecoverable / bill.totalBilled) * 100))
+    : 0;
 
   return (
     <section className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6">
@@ -16,6 +20,9 @@ export default function SavingsSummary({ result }: { result: AnalysisResult }) {
           {usd(result.totalRecoverable)}
         </span>
         <span className="text-sm text-slate-400">recoverable</span>
+      </div>
+      <div className="mt-2 text-xs font-medium text-slate-500">
+        Billed {usd(bill.totalBilled)} · Due {usd(due)} · {recoverPct}% disputed
       </div>
     </section>
   );
