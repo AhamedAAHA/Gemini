@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { analyzeBillSync, scoreFor } from "../lib/analyze";
+import { analyzeBill, analyzeBillSync, scoreFor } from "../lib/analyze";
 import { getSample } from "../lib/samples";
 import type { Flag } from "../lib/types";
 
@@ -29,6 +29,17 @@ describe("analyzeBillSync", () => {
 
   it("throws on unrecognized text", () => {
     expect(() => analyzeBillSync({ text: "gibberish" })).toThrow();
+  });
+});
+
+describe("analyzeBill", () => {
+  it("runs the full async pipeline for a sample bill", async () => {
+    const result = await analyzeBill({ sampleId: "sample-mri" });
+    expect(result.parsedBy).toBe("sample");
+    expect(result.bill.items.length).toBeGreaterThan(0);
+    expect(result.flags.length).toBeGreaterThan(0);
+    expect(result.analyzedBy).toContain("rules");
+    expect(result.totalRecoverable).toBeGreaterThan(0);
   });
 });
 
