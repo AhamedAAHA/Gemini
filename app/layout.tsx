@@ -33,6 +33,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
+      <head>
+        <meta name="theme-color" content="#030712" />
+      </head>
       <body className="min-h-screen font-display">{children}</body>
     </html>
   );
