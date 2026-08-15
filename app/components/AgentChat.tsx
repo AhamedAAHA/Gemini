@@ -115,7 +115,7 @@ export default function AgentChat({ context }: { context: AgentContext }) {
         </div>
       </div>
 
-      <div className="flex-1 space-y-3 overflow-y-auto p-4">
+      <div role="log" aria-live="polite" aria-label="Chat transcript" className="flex-1 space-y-3 overflow-y-auto p-4">
         {messages.map((m, i) => (
           <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
             <div
