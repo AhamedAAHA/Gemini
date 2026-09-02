@@ -15,6 +15,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://billscope.app"),
   title: {
     default: "BillScope — find the money you don't owe",
     template: "%s · BillScope",

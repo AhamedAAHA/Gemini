@@ -1,0 +1,11 @@
+node_modules
+.next
+.git
+.env
+.env.local
+.env*.local
+terraform/.terraform
+terraform/*.tfstate*
+terraform/breaker.zip
+*.log
+*.tsbuildinfo
