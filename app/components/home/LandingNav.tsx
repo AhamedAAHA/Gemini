@@ -19,16 +19,16 @@ export default function LandingNav() {
   ];
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
+    <header className="fixed inset-x-0 top-0 z-50 transition-all duration-300">
       <div className="mx-auto max-w-6xl px-6">
         <div
-          className={`mt-4 flex items-center justify-between rounded-2xl px-5 py-3 transition-all duration-300 ${
-            scrolled ? "glass-strong" : "border border-transparent"
+          className={`mt-4 flex items-center justify-between rounded-2xl px-6 py-3.5 transition-all duration-300 ${
+            scrolled ? "glass-nav shadow-2xl" : "bg-transparent border border-transparent"
           }`}
         >
           <Logo />
 
-          <nav className="hidden items-center gap-8 text-sm text-slate-400 md:flex" aria-label="Sections">
+          <nav className="hidden items-center gap-8 text-sm font-medium text-slate-300 md:flex" aria-label="Sections">
             {links.map((l) => (
               <a key={l.href} href={l.href} className="transition hover:text-emerald-300">
                 {l.label}
@@ -39,7 +39,7 @@ export default function LandingNav() {
           <div className="flex items-center gap-3">
             <Link
               href="/analyze"
-              className="hidden rounded-xl bg-emerald-500 px-4 py-2 text-sm font-bold text-slate-950 transition hover:bg-emerald-400 sm:block"
+              className="glow-emerald hidden rounded-xl bg-emerald-500 px-5 py-2.5 text-sm font-bold text-slate-950 transition hover:bg-emerald-400 sm:block"
             >
               Analyze a bill
             </Link>
@@ -61,8 +61,8 @@ export default function LandingNav() {
         </div>
 
         {open && (
-          <div className="glass-strong mt-2 rounded-2xl p-4 md:hidden">
-            <nav className="flex flex-col gap-1 text-sm text-slate-400" aria-label="Sections">
+          <div className="glass-nav mt-2 rounded-2xl p-4 md:hidden">
+            <nav className="flex flex-col gap-1 text-sm font-medium text-slate-300" aria-label="Sections">
               {links.map((l) => (
                 <a
                   key={l.href}

@@ -11,16 +11,15 @@ import Footer from "@/app/components/home/Footer";
 
 export default function Home() {
   return (
-    <main className="min-h-screen overflow-x-clip">
+    <main className="relative min-h-screen bg-slate-950 text-slate-100 overflow-x-hidden selection:bg-emerald-500/30 selection:text-emerald-200">
       <ProgressBar />
-      <LiveBackground />
 
-      {/* soft left-edge gradient for hero text legibility; rest of the page stays clear */}
-      <div
-        aria-hidden
-        className="pointer-events-none fixed inset-y-0 left-0 z-0 w-1/2 bg-[linear-gradient(90deg,rgba(3,7,18,0.92),rgba(3,7,18,0.45)_45%,transparent_75%)]"
-      />
+      {/* 3D Background canvas cleanly placed at z-0 behind all page content */}
+      <div className="pointer-events-none fixed inset-0 z-0">
+        <LiveBackground />
+      </div>
 
+      {/* Main page content cleanly elevated at z-10 */}
       <div className="relative z-10">
         <LandingNav />
         <Hero />

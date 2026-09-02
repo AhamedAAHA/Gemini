@@ -7,8 +7,6 @@ import * as THREE from "three";
 
 type Row = { y: number; w: number; amountW: number; x: number; error?: boolean };
 
-// The "bill" rendered as a floating paper card: header strip, line items with
-// right-aligned amounts, red error markers, and a PAST-DUE stamp.
 const ROWS: Row[] = [
   { y: 1.14, w: 1.15, amountW: 0.55, x: -0.42 },
   { y: 0.94, w: 1.5, amountW: 0.55, x: -0.32 },
@@ -43,16 +41,16 @@ export default function BillCard3D({
     if (!animated) return;
     const t = clock.elapsedTime;
     if (group.current) {
-      group.current.rotation.y = Math.sin(t * 0.26) * 0.14;
-      group.current.rotation.x = Math.sin(t * 0.2) * 0.04;
+      group.current.rotation.y = Math.sin(t * 0.3) * 0.16;
+      group.current.rotation.x = Math.sin(t * 0.22) * 0.06;
     }
     if (scan.current) {
-      scan.current.position.y = Math.sin(t * 1.1) * 1.55;
-      (scan.current.material as THREE.MeshBasicMaterial).opacity = 0.55 + Math.sin(t * 1.1) * 0.2;
+      scan.current.position.y = Math.sin(t * 1.2) * 1.55;
+      (scan.current.material as THREE.MeshBasicMaterial).opacity = 0.65 + Math.sin(t * 1.2) * 0.25;
     }
     dots.current.forEach((dot, i) => {
       if (dot) {
-        const pulse = 0.5 + Math.abs(Math.sin(t * 1.8 + i * 1.7)) * 0.5;
+        const pulse = 0.4 + Math.abs(Math.sin(t * 2 + i * 1.5)) * 0.6;
         (dot.material as THREE.MeshBasicMaterial).opacity = pulse;
       }
     });
@@ -60,53 +58,53 @@ export default function BillCard3D({
 
   return (
     <Float
-      speed={animated ? 1.4 : 0}
-      rotationIntensity={animated ? 0.22 : 0}
-      floatIntensity={animated ? 0.6 : 0}
+      speed={animated ? 1.6 : 0}
+      rotationIntensity={animated ? 0.25 : 0}
+      floatIntensity={animated ? 0.7 : 0}
     >
       <group ref={group} position={position} scale={scale}>
-        {/* paper */}
+        {/* Holographic Paper Base */}
         <mesh>
           <planeGeometry args={[2.6, 3.4]} />
           <meshStandardMaterial
-            color="#0e1a2e"
-            roughness={0.35}
-            metalness={0.08}
-            emissive="#04121f"
-            emissiveIntensity={0.35}
+            color="#0b1329"
+            roughness={0.25}
+            metalness={0.2}
+            emissive="#020d1a"
+            emissiveIntensity={0.5}
           />
         </mesh>
-        {/* edge glow */}
-        <mesh position={[0, 0, -0.001]}>
-          <planeGeometry args={[2.64, 3.44]} />
-          <meshBasicMaterial color="#0f766e" transparent opacity={0.35} />
+
+        {/* Outer Emerald Neon Edge Glow */}
+        <mesh position={[0, 0, -0.002]}>
+          <planeGeometry args={[2.66, 3.46]} />
+          <meshBasicMaterial color="#10b981" transparent opacity={0.4} />
         </mesh>
 
-        {/* provider header strip */}
-        <mesh position={[0, 1.5, 0.02]}>
-          <planeGeometry args={[2.2, 0.34]} />
-          <meshBasicMaterial color="#10b981" transparent opacity={0.85} />
+        {/* Provider Header Banner */}
+        <mesh position={[0, 1.48, 0.02]}>
+          <planeGeometry args={[2.24, 0.36]} />
+          <meshBasicMaterial color="#10b981" transparent opacity={0.9} />
         </mesh>
-        {/* header "text" hint */}
-        <mesh position={[-0.7, 1.5, 0.03]}>
+        <mesh position={[-0.7, 1.48, 0.03]}>
           <planeGeometry args={[0.9, 0.09]} />
           <meshBasicMaterial color="#022c22" />
         </mesh>
-        <mesh position={[0.62, 1.5, 0.03]}>
+        <mesh position={[0.62, 1.48, 0.03]}>
           <planeGeometry args={[0.5, 0.09]} />
           <meshBasicMaterial color="#022c22" />
         </mesh>
 
-        {/* line items: description bar + right-aligned amount block */}
+        {/* Line Items & Error Flags */}
         {ROWS.map((r, i) => (
           <group key={i} position={[0, r.y, 0.02]}>
             <mesh position={[r.x + r.w / 2, 0, 0]}>
               <planeGeometry args={[r.w, 0.075]} />
-              <meshBasicMaterial color={r.error ? "#7f1d1d" : "#33415c"} />
+              <meshBasicMaterial color={r.error ? "#991b1b" : "#1e293b"} />
             </mesh>
             <mesh position={[r.w / 2 + 0.09 + r.amountW / 2, 0, 0.004]}>
               <planeGeometry args={[r.amountW, 0.075]} />
-              <meshBasicMaterial color={r.error ? "#fda4af" : "#64748b"} />
+              <meshBasicMaterial color={r.error ? "#fca5a5" : "#475569"} />
             </mesh>
             {r.error && (
               <mesh
@@ -115,42 +113,44 @@ export default function BillCard3D({
                 }}
                 position={[r.w / 2 + 0.09 + r.amountW + 0.09, 0, 0.008]}
               >
-                <planeGeometry args={[0.085, 0.085]} />
+                <planeGeometry args={[0.09, 0.09]} />
                 <meshBasicMaterial color="#fb7185" transparent />
               </mesh>
             )}
             {r.error && (
-              <mesh position={[0, 0, -0.02]}>
-                <planeGeometry args={[r.w + r.amountW + 0.22, 0.11]} />
-                <meshBasicMaterial color="#fb7185" transparent opacity={0.14} />
+              <mesh position={[0, 0, -0.015]}>
+                <planeGeometry args={[r.w + r.amountW + 0.24, 0.12]} />
+                <meshBasicMaterial color="#fb7185" transparent opacity={0.16} />
               </mesh>
             )}
           </group>
         ))}
 
-        {/* PAST DUE stamp */}
-        <group position={[0.75, -0.32, 0.03]} rotation={[-0.12, 0, -0.28]}>
+        {/* Holographic Disputed Stamp */}
+        <group position={[0.72, -0.35, 0.03]} rotation={[-0.1, 0, -0.25]}>
           <mesh>
-            <planeGeometry args={[1.05, 0.46]} />
-            <meshBasicMaterial color="#fb7185" transparent opacity={0.18} />
+            <planeGeometry args={[1.1, 0.48]} />
+            <meshBasicMaterial color="#fb7185" transparent opacity={0.2} />
           </mesh>
-          <mesh position={[-0.28, 0.06, 0.01]}>
-            <planeGeometry args={[0.62, 0.1]} />
-            <meshBasicMaterial color="#fb7185" transparent opacity={0.55} />
+          <mesh position={[-0.26, 0.07, 0.01]}>
+            <planeGeometry args={[0.65, 0.1]} />
+            <meshBasicMaterial color="#fb7185" transparent opacity={0.65} />
           </mesh>
-          <mesh position={[-0.28, -0.06, 0.01]}>
-            <planeGeometry args={[0.42, 0.1]} />
-            <meshBasicMaterial color="#fb7185" transparent opacity={0.55} />
+          <mesh position={[-0.26, -0.07, 0.01]}>
+            <planeGeometry args={[0.45, 0.1]} />
+            <meshBasicMaterial color="#fb7185" transparent opacity={0.65} />
           </mesh>
         </group>
 
-        {/* scanning beam + particles live INSIDE the group so they scale with the card */}
+        {/* Laser Scanning Beam */}
         <mesh ref={scan} position={[0, 0, 0.35]}>
-          <planeGeometry args={[2.7, 0.07]} />
-          <meshBasicMaterial color="#2dd4bf" transparent opacity={0.7} />
+          <planeGeometry args={[2.75, 0.07]} />
+          <meshBasicMaterial color="#34d399" transparent opacity={0.75} />
         </mesh>
+
+        {/* Floating Cyber Ambient Particles */}
         {particles && (
-          <Sparkles count={70} scale={[9, 6, 4]} size={2.2} speed={0.35} color="#34d399" opacity={0.6} />
+          <Sparkles count={80} scale={[10, 7, 5]} size={2.5} speed={0.4} color="#34d399" opacity={0.65} />
         )}
       </group>
     </Float>

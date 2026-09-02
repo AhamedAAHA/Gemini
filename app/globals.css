@@ -12,152 +12,162 @@
 
 html {
   scroll-behavior: smooth;
+  background-color: #020617;
 }
 
 body {
-  background-color: #030712;
-  color: #e2e8f0;
+  background-color: #020617;
+  color: #f1f5f9;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
-  overflow-x: clip;
+  overflow-x: hidden;
 }
 
-/* ---- layered "scan lab" backdrop ---- */
+/* ---- Cinematic Ambient Backdrops ---- */
 .bg-lab {
   background:
-    radial-gradient(1200px 800px at 85% -10%, rgba(16, 185, 129, 0.14), transparent 60%),
-    radial-gradient(1000px 700px at 0% 20%, rgba(45, 212, 191, 0.08), transparent 55%),
-    radial-gradient(900px 600px at 50% 110%, rgba(6, 182, 212, 0.1), transparent 60%),
-    #030712;
+    radial-gradient(1200px 700px at 80% -10%, rgba(16, 185, 129, 0.15), transparent 60%),
+    radial-gradient(1000px 600px at 10% 25%, rgba(14, 165, 233, 0.12), transparent 55%),
+    radial-gradient(900px 500px at 50% 100%, rgba(168, 85, 247, 0.08), transparent 60%),
+    #020617;
 }
 
-.grid-overlay {
-  background-image:
-    linear-gradient(to right, rgba(148, 163, 184, 0.06) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black, transparent 70%);
-}
-
-/* ---- static fallback for the 3D background (no WebGL) ---- */
 .bg-scene-static {
   background:
-    radial-gradient(700px 500px at 70% 20%, rgba(16, 185, 129, 0.18), transparent 60%),
-    radial-gradient(600px 420px at 85% 60%, rgba(45, 212, 191, 0.12), transparent 60%),
-    radial-gradient(500px 400px at 15% 80%, rgba(6, 182, 212, 0.12), transparent 60%),
-    #030712;
+    radial-gradient(900px 600px at 75% 20%, rgba(16, 185, 129, 0.2), transparent 60%),
+    radial-gradient(800px 500px at 20% 80%, rgba(6, 182, 212, 0.15), transparent 60%),
+    #020617;
 }
 
-/* ---- glass ---- */
-.glass-strong {
-  background: linear-gradient(180deg, rgba(10, 16, 32, 0.85), rgba(3, 7, 18, 0.9));
-  border: 1px solid rgba(148, 163, 184, 0.16);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+/* ---- Cybernetic Grid Background ---- */
+.cinematic-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 10%, black 20%, transparent 80%);
 }
 
-/* ---- selection ---- */
-::selection {
-  background: rgba(16, 185, 129, 0.35);
-  color: #ecfdf5;
+/* ---- Glassmorphism UI Components ---- */
+.glass-card {
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.75) 0%, rgba(3, 7, 18, 0.85) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
 }
 
-/* ---- focus ---- */
-:focus-visible {
-  outline: 2px solid #34d399;
-  outline-offset: 2px;
+.glass-nav {
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.85) 0%, rgba(2, 6, 23, 0.95) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
 }
 
-/* ---- text ---- */
+.glass-pill {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+}
+
+/* ---- Text Gradients & Accents ---- */
 .text-scan-gradient {
-  background: linear-gradient(100deg, #34d399 0%, #2dd4bf 45%, #22d3ee 100%);
+  background: linear-gradient(110deg, #34d399 0%, #2dd4bf 35%, #38bdf8 70%, #a855f7 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-.text-blood {
-  color: #fb7185;
+.text-emerald-glow {
+  color: #34d399;
+  text-shadow: 0 0 20px rgba(52, 211, 153, 0.4);
 }
 
-/* ---- scan beam ---- */
+.text-rose-glow {
+  color: #fb7185;
+  text-shadow: 0 0 20px rgba(251, 113, 133, 0.4);
+}
+
+/* ---- Neon Glow Shadows ---- */
+.glow-emerald {
+  box-shadow: 0 0 35px -5px rgba(16, 185, 129, 0.45);
+}
+
+.glow-emerald-lg {
+  box-shadow: 0 0 60px -10px rgba(16, 185, 129, 0.6);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 35px -5px rgba(6, 182, 212, 0.45);
+}
+
+/* ---- Laser Scanning Animations ---- */
 @keyframes scanbeam {
   0% {
-    top: -10%;
+    top: -5%;
     opacity: 0;
   }
-  8% {
+  15% {
     opacity: 1;
   }
-  92% {
+  85% {
     opacity: 1;
   }
   100% {
-    top: 110%;
+    top: 105%;
     opacity: 0;
   }
 }
+
 .scan-beam {
   position: absolute;
   left: 0;
   right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, rgba(45, 212, 191, 0.9), transparent);
-  box-shadow: 0 0 18px 2px rgba(45, 212, 191, 0.55);
-  animation: scanbeam 2.6s ease-in-out infinite;
+  height: 2.5px;
+  background: linear-gradient(90deg, transparent 0%, #34d399 50%, transparent 100%);
+  box-shadow: 0 0 20px 3px rgba(52, 211, 153, 0.7);
+  animation: scanbeam 2.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 @keyframes scanpulse {
-  0%,
-  100% {
-    opacity: 0.25;
-  }
-  50% {
-    opacity: 0.7;
-  }
+  0%, 100% { opacity: 0.3; transform: scale(0.95); }
+  50% { opacity: 1; transform: scale(1.05); }
 }
+
 .scan-pulse {
-  animation: scanpulse 1.8s ease-in-out infinite;
+  animation: scanpulse 2s ease-in-out infinite;
 }
 
-/* ---- glow ---- */
-.glow-emerald {
-  box-shadow: 0 0 40px -8px rgba(16, 185, 129, 0.5);
-}
-
-/* ---- mono digits ---- */
 .tabular {
   font-variant-numeric: tabular-nums;
 }
 
-/* ---- scrollbar ---- */
+/* ---- Custom Scrollbar ---- */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #030712;
+  background: #020617;
 }
 ::-webkit-scrollbar-thumb {
   background: #1e293b;
   border-radius: 999px;
-  border: 2px solid #030712;
+  border: 2px solid #020617;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #10b981;
 }
 
-/* ---- reduced motion ---- */
+/* ---- Reduced Motion Support ---- */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-  .scan-beam,
-  .scan-pulse {
+  .scan-beam, .scan-pulse {
     animation: none !important;
     opacity: 1 !important;
   }

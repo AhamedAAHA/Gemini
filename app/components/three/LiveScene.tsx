@@ -38,10 +38,10 @@ function CameraRig({ reduce }: { reduce: boolean }) {
     const t = clock.elapsedTime;
     if (reduce || !hoverFine) {
       camera.position.x = damp(camera.position.x, 0, 3, 1 / 60);
-      camera.position.y = damp(camera.position.y, 0.1 + Math.sin(t * 0.2) * 0.04, 3, 1 / 60);
+      camera.position.y = damp(camera.position.y, 0.1 + Math.sin(t * 0.2) * 0.05, 3, 1 / 60);
     } else {
-      camera.position.x = damp(camera.position.x, target.current.x * 0.45, 3, 1 / 60);
-      camera.position.y = damp(camera.position.y, 0.1 + target.current.y * 0.28, 3, 1 / 60);
+      camera.position.x = damp(camera.position.x, target.current.x * 0.5, 3, 1 / 60);
+      camera.position.y = damp(camera.position.y, 0.1 + target.current.y * 0.3, 3, 1 / 60);
     }
     camera.lookAt(0, 0.1, 0);
   });
@@ -49,8 +49,30 @@ function CameraRig({ reduce }: { reduce: boolean }) {
   return null;
 }
 
+function AmbientOrbs() {
+  const group = useRef<THREE.Group>(null);
+  useFrame(({ clock }) => {
+    if (group.current) {
+      group.current.rotation.y = clock.elapsedTime * 0.05;
+    }
+  });
+
+  return (
+    <group ref={group}>
+      <mesh position={[-5, 3, -6]}>
+        <sphereGeometry args={[1.8, 32, 32]} />
+        <meshBasicMaterial color="#10b981" transparent opacity={0.08} />
+      </mesh>
+      <mesh position={[5, -2, -5]}>
+        <sphereGeometry args={[2.2, 32, 32]} />
+        <meshBasicMaterial color="#06b6d4" transparent opacity={0.08} />
+      </mesh>
+    </group>
+  );
+}
+
 function MainBill({ wide }: { wide: boolean }) {
-  return <BillCard3D position={[wide ? 2.3 : 0, 0.15, 0]} scale={wide ? 1.05 : 0.9} />;
+  return <BillCard3D position={[wide ? 2.4 : 0, 0.1, 0]} scale={wide ? 1.08 : 0.88} />;
 }
 
 export default function LiveScene() {
@@ -68,11 +90,12 @@ export default function LiveScene() {
       gl={{ antialias: true, alpha: true }}
       style={{ background: "transparent" }}
     >
-      <ambientLight intensity={0.75} />
-      <directionalLight position={[4, 6, 5]} intensity={1.3} />
-      <pointLight position={[-4, -2, 3]} intensity={0.7} color="#2dd4bf" />
-      <pointLight position={[3, 1, 4]} intensity={0.5} color="#22d3ee" />
+      <ambientLight intensity={0.8} />
+      <directionalLight position={[5, 7, 5]} intensity={1.4} color="#f8fafc" />
+      <pointLight position={[-4, -2, 4]} intensity={0.8} color="#10b981" />
+      <pointLight position={[4, 2, 4]} intensity={0.7} color="#38bdf8" />
       <CameraRig reduce={reduce} />
+      <AmbientOrbs />
       <MainBill wide={wide} />
       {ultrawide && (
         <>

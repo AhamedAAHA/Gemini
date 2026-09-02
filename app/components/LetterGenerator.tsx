@@ -34,50 +34,50 @@ export default function LetterGenerator({ result }: { result: AnalysisResult }) 
   };
 
   return (
-    <section className="rounded-2xl border border-slate-800 bg-slate-900/60">
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 p-4">
+    <section className="glass-card rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 p-5 bg-slate-950/40">
         <div>
-          <h3 className="font-semibold">Negotiation toolkit</h3>
-          <p className="text-xs text-slate-500">
-            Dispute {usd(letter.totalDisputed)} · deadline {fmtDate(letter.deadline)}
+          <h3 className="font-bold text-slate-100">Negotiation Toolkit</h3>
+          <p className="font-mono text-xs text-slate-400">
+            Disputed: <span className="font-bold text-rose-300">{usd(letter.totalDisputed)}</span> · Deadline: <span className="text-slate-200">{fmtDate(letter.deadline)}</span>
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2.5">
           <button
             onClick={() => setMode("letter")}
-            className={`rounded-lg px-3 py-1.5 text-sm font-medium transition ${
+            className={`rounded-xl px-4 py-2 text-xs font-bold transition ${
               mode === "letter"
-                ? "bg-emerald-500 text-slate-950"
-                : "border border-slate-700 text-slate-300 hover:border-emerald-500/50"
+                ? "bg-emerald-500 text-slate-950 shadow-[0_0_15px_rgba(16,185,129,0.4)]"
+                : "border border-white/10 bg-slate-900/60 text-slate-300 hover:border-emerald-500/50"
             }`}
           >
-            Appeal letter
+            Appeal Letter
           </button>
           <button
             onClick={() => setMode("script")}
-            className={`rounded-lg px-3 py-1.5 text-sm font-medium transition ${
+            className={`rounded-xl px-4 py-2 text-xs font-bold transition ${
               mode === "script"
-                ? "bg-emerald-500 text-slate-950"
-                : "border border-slate-700 text-slate-300 hover:border-emerald-500/50"
+                ? "bg-emerald-500 text-slate-950 shadow-[0_0_15px_rgba(16,185,129,0.4)]"
+                : "border border-white/10 bg-slate-900/60 text-slate-300 hover:border-emerald-500/50"
             }`}
           >
-            Call script
+            Call Script
           </button>
           <button
             onClick={copy}
-            className="rounded-lg border border-slate-700 px-3 py-1.5 text-sm font-medium text-slate-300 transition hover:border-emerald-500/50"
+            className="rounded-xl border border-white/10 bg-slate-900/60 px-4 py-2 text-xs font-semibold text-slate-200 transition hover:border-emerald-500/50 hover:text-emerald-300"
           >
-            {copied ? "Copied!" : "Copy"}
+            {copied ? "✓ Copied!" : "Copy"}
           </button>
           <button
             onClick={download}
-            className="rounded-lg border border-slate-700 px-3 py-1.5 text-sm font-medium text-slate-300 transition hover:border-emerald-500/50"
+            className="rounded-xl border border-white/10 bg-slate-900/60 px-4 py-2 text-xs font-semibold text-slate-200 transition hover:border-emerald-500/50 hover:text-emerald-300"
           >
-            Download
+            Download .txt
           </button>
         </div>
       </div>
-      <pre className="max-h-96 overflow-auto whitespace-pre-wrap p-4 font-sans text-sm leading-relaxed text-slate-300">
+      <pre className="max-h-96 overflow-auto whitespace-pre-wrap p-6 font-mono text-xs leading-relaxed text-slate-300 bg-slate-950/80">
         {content}
       </pre>
     </section>

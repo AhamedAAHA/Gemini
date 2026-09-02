@@ -8,32 +8,32 @@ export default function BillCard({ result }: { result: AnalysisResult }) {
   result.flags.forEach((f) => f.itemLines.forEach((l) => flaggedLines.add(l)));
 
   return (
-    <section className="rounded-2xl border border-slate-800 bg-slate-900/60">
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 p-4">
+    <section className="glass-card overflow-hidden rounded-3xl border border-white/10 shadow-2xl">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 p-5 bg-slate-950/40">
         <div>
-          <h3 className="font-semibold">{result.bill.providerName ?? "Bill"}</h3>
-          <p className="text-xs text-slate-500">
+          <h3 className="font-bold text-slate-100">{result.bill.providerName ?? "Medical Bill"}</h3>
+          <p className="font-mono text-xs text-slate-400">
             {result.bill.patientName ? `${result.bill.patientName} · ` : ""}
             {result.bill.serviceDate ?? "unknown date"} · {result.bill.fileName}
           </p>
         </div>
-        <div className="text-right text-xs text-slate-500">
-          <div>Billed: <span className="font-semibold text-slate-200">{usd(result.bill.totalBilled)}</span></div>
-          <div>Due: <span className="font-semibold text-rose-300">{usd(result.bill.patientDue ?? 0)}</span></div>
+        <div className="text-right font-mono text-xs text-slate-400">
+          <div>Total Billed: <span className="font-bold text-slate-100">{usd(result.bill.totalBilled)}</span></div>
+          <div>Patient Due: <span className="font-bold text-rose-300">{usd(result.bill.patientDue ?? 0)}</span></div>
         </div>
       </div>
 
       <div className="overflow-x-auto">
         <table className="w-full min-w-[640px] text-left text-sm">
           <thead>
-            <tr className="border-b border-slate-800 text-xs uppercase tracking-wide text-slate-500">
-              <th className="px-4 py-3">#</th>
-              <th className="px-4 py-3">Date</th>
-              <th className="px-4 py-3">Code</th>
-              <th className="px-4 py-3">Description</th>
-              <th className="px-4 py-3 text-right">Billed</th>
-              <th className="px-4 py-3 text-right">Allowed</th>
-              <th className="px-4 py-3 text-right">Paid</th>
+            <tr className="border-b border-white/10 font-mono text-[11px] uppercase tracking-wider text-slate-400 bg-slate-950/60">
+              <th className="px-5 py-3.5">#</th>
+              <th className="px-5 py-3.5">Date</th>
+              <th className="px-5 py-3.5">CPT Code</th>
+              <th className="px-5 py-3.5">Description</th>
+              <th className="px-5 py-3.5 text-right">Billed</th>
+              <th className="px-5 py-3.5 text-right">Allowed</th>
+              <th className="px-5 py-3.5 text-right">Paid</th>
             </tr>
           </thead>
           <tbody>
@@ -42,32 +42,32 @@ export default function BillCard({ result }: { result: AnalysisResult }) {
               return (
                 <tr
                   key={item.line}
-                  className={`border-b border-slate-800/50 ${
-                    flagged ? "bg-rose-500/10" : "odd:bg-transparent"
+                  className={`border-b border-white/5 transition-colors ${
+                    flagged ? "bg-rose-500/15" : "hover:bg-white/5"
                   }`}
                 >
-                  <td className="px-4 py-2.5 text-slate-500">
+                  <td className="px-5 py-3 font-mono text-xs text-slate-400">
                     {String(item.line).padStart(2, "0")}
                     {flagged && (
-                      <span className="ml-1.5 inline-block h-1.5 w-1.5 rounded-full bg-rose-400" />
+                      <span className="ml-2 inline-block h-2 w-2 rounded-full bg-rose-400 shadow-[0_0_8px_rgba(251,113,133,0.8)]" />
                     )}
                   </td>
-                  <td className="px-4 py-2.5 text-slate-400">{item.date ?? "—"}</td>
-                  <td className="px-4 py-2.5 font-mono text-xs text-slate-400">
+                  <td className="px-5 py-3 font-mono text-xs text-slate-400">{item.date ?? "—"}</td>
+                  <td className="px-5 py-3 font-mono text-xs font-semibold text-slate-300">
                     {item.code ?? "—"}
                   </td>
-                  <td className="px-4 py-2.5">
-                    <span className={flagged ? "text-rose-200" : "text-slate-200"}>
+                  <td className="px-5 py-3 font-medium">
+                    <span className={flagged ? "text-rose-200 font-semibold" : "text-slate-200"}>
                       {item.description}
                     </span>
                   </td>
-                  <td className="px-4 py-2.5 text-right font-medium text-slate-100">
+                  <td className="px-5 py-3 text-right font-mono font-semibold text-slate-100">
                     {usd(item.amount)}
                   </td>
-                  <td className="px-4 py-2.5 text-right text-slate-400">
+                  <td className="px-5 py-3 text-right font-mono text-slate-400">
                     {item.allowed !== undefined ? usd(item.allowed) : "—"}
                   </td>
-                  <td className="px-4 py-2.5 text-right text-slate-400">
+                  <td className="px-5 py-3 text-right font-mono text-slate-400">
                     {item.paid !== undefined ? usd(item.paid) : "—"}
                   </td>
                 </tr>
@@ -76,10 +76,10 @@ export default function BillCard({ result }: { result: AnalysisResult }) {
           </tbody>
         </table>
       </div>
-      <p className="px-4 py-3 text-xs text-slate-500">
-        <span className="inline-block h-1.5 w-1.5 rounded-full bg-rose-400 align-middle" />{" "}
-        <span className="align-middle">flagged lines — click an issue below for the full explanation.</span>
-      </p>
+      <div className="border-t border-white/10 px-5 py-3 text-xs text-slate-400 bg-slate-950/40">
+        <span className="inline-block h-2 w-2 rounded-full bg-rose-400 align-middle shadow-[0_0_8px_rgba(251,113,133,0.8)]" />{" "}
+        <span className="align-middle font-mono">Red rows indicate flagged billing errors or benchmark discrepancies.</span>
+      </div>
     </section>
   );
 }
