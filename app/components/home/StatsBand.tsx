@@ -4,28 +4,30 @@ import Reveal from "@/app/components/ui/Reveal";
 import Counter from "@/app/components/ui/Counter";
 
 const STATS = [
-  { value: 10, prefix: "1 in ", label: "hospital bills contains a billing error" },
-  { value: 2000, prefix: "$", suffix: "+", label: "average overcharge per erroneous bill" },
-  { value: 49, suffix: "%", label: "of adults report a surprise or incorrect charge" },
-  { value: 0, prefix: "$", label: "it costs to find out if you're overcharged" },
+  { value: 80, suffix: "%", label: "of hospital bills contain billing errors" },
+  { value: 2000, prefix: "$", suffix: "+", label: "average overcharge on disputed statements" },
+  { value: 49, suffix: "%", label: "of patients receive surprise out-of-network fees" },
+  { value: 0, prefix: "$", label: "cost to run a line-by-line audit with BillScope" },
 ];
 
 export default function StatsBand() {
   return (
-    <section className="relative border-y border-white/5 bg-slate-950/60 py-14">
-      <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-6 lg:grid-cols-4">
-        {STATS.map((s, i) => (
-          <Reveal key={i} delay={i * 0.08} className="text-center">
-            <div className="font-display text-4xl font-bold text-scan-gradient sm:text-5xl">
-              <Counter
-                value={s.value}
-                prefix={s.prefix ?? ""}
-                suffix={s.suffix ?? ""}
-              />
-            </div>
-            <div className="mx-auto mt-2 max-w-[16ch] text-sm leading-snug text-slate-400">{s.label}</div>
-          </Reveal>
-        ))}
+    <section className="relative border-y border-white/10 bg-slate-950/80 py-16 backdrop-blur-xl">
+      <div className="section-container">
+        <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
+          {STATS.map((s, i) => (
+            <Reveal key={i} delay={i * 0.08} className="text-center">
+              <div className="glass-card flex flex-col items-center justify-center rounded-2xl p-6 transition hover:border-emerald-500/40 hover:shadow-[0_0_30px_rgba(16,185,129,0.15)]">
+                <div className="font-display text-4xl font-extrabold text-scan-gradient sm:text-5xl">
+                  <Counter value={s.value} prefix={s.prefix ?? ""} suffix={s.suffix ?? ""} />
+                </div>
+                <div className="mt-3 text-xs font-semibold leading-relaxed text-slate-300 sm:text-sm">
+                  {s.label}
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
   );

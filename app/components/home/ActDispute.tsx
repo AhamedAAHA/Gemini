@@ -5,8 +5,8 @@ import Link from "next/link";
 
 export default function ActDispute() {
   return (
-    <section className="relative py-28 sm:py-36">
-      <div className="mx-auto max-w-6xl px-6">
+    <section className="relative py-24 sm:py-32">
+      <div className="section-container">
         <div className="grid items-center gap-12 lg:grid-cols-2">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -14,19 +14,17 @@ export default function ActDispute() {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.6 }}
           >
-            <div className="font-mono text-xs uppercase tracking-[0.3em] text-emerald-400">
-              The Dispute Generator
-            </div>
-            <h2 className="font-display mt-3 text-3xl font-extrabold tracking-tight sm:text-5xl">
+            <div className="section-title-badge">The Automated Dispute Generator</div>
+            <h2 className="font-display mt-3 text-3xl font-extrabold tracking-tight text-slate-100 sm:text-5xl">
               Legal-ready dispute letters. <span className="text-scan-gradient">One click away.</span>
             </h2>
             <p className="mt-4 text-base leading-relaxed text-slate-300 sm:text-lg">
-              No need to hire an expensive advocate or spend hours drafting formal appeals. BillScope automatically drafts customized dispute letters and call scripts citing specific CPT codes, Medicare benchmarks, and fair-billing laws.
+              No need to hire expensive billing advocates. BillScope automatically drafts customized dispute letters citing specific CPT codes, Medicare fee schedules, and state fair-billing laws.
             </p>
             <div className="mt-8">
               <Link
                 href="/analyze"
-                className="glow-emerald inline-flex items-center gap-3 rounded-2xl bg-emerald-500 px-8 py-4 text-base font-bold text-slate-950 transition hover:bg-emerald-400"
+                className="glow-emerald inline-flex items-center gap-3 rounded-2xl bg-emerald-500 px-8 py-4.5 text-base font-bold text-slate-950 transition hover:bg-emerald-400"
               >
                 Generate your dispute letter
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
@@ -47,7 +45,7 @@ export default function ActDispute() {
                 <div className="h-3 w-3 rounded-full bg-rose-500/80" />
                 <div className="h-3 w-3 rounded-full bg-amber-500/80" />
                 <div className="h-3 w-3 rounded-full bg-emerald-500/80" />
-                <span className="ml-2 font-mono text-xs text-slate-400">dispute-letter.txt</span>
+                <span className="ml-2 font-mono text-xs text-slate-400">billscope-dispute-letter.txt</span>
               </div>
               <pre className="mt-4 max-h-72 overflow-hidden text-ellipsis font-mono text-xs leading-relaxed text-slate-300">
 {`RE: FORMAL DISPUTE OF MEDICAL BILLING ERRORS

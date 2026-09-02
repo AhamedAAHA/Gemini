@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Plus_Jakarta_Sans, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
+const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  variable: "--font-plus-jakarta",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -17,27 +23,32 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://billscope.app"),
   title: {
-    default: "BillScope — find the money you don't owe",
+    default: "BillScope — Find The Money You Don't Owe",
     template: "%s · BillScope",
   },
   description:
-    "Upload a medical bill. BillScope finds the billing errors, shows you the money you don't owe, and drafts the dispute for you.",
-  keywords: ["medical bill", "hospital bill", "audit", "billing errors", "dispute letter"],
+    "Upload a medical bill. BillScope scans your statement, highlights inflated CPT rates & duplicate charges, and generates custom dispute letters.",
+  keywords: ["medical bill audit", "hospital bill dispute", "CPT code checker", "medical billing errors"],
   openGraph: {
-    title: "BillScope — find the money you don't owe",
+    title: "BillScope — Find The Money You Don't Owe",
     description:
-      "Upload a medical bill. BillScope finds the billing errors, shows you the money you don't owe, and drafts the dispute for you.",
+      "Upload a medical bill. BillScope scans your statement, highlights inflated CPT rates & duplicate charges, and generates custom dispute letters.",
     type: "website",
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} ${jetbrainsMono.variable}`}>
+    <html
+      lang="en"
+      className={`${plusJakarta.variable} ${inter.variable} ${jetbrainsMono.variable} antialiased dark`}
+    >
       <head>
-        <meta name="theme-color" content="#030712" />
+        <meta name="theme-color" content="#020617" />
       </head>
-      <body className="min-h-screen font-display">{children}</body>
+      <body className="min-h-screen bg-slate-950 font-sans text-slate-100 selection:bg-emerald-500/30 selection:text-emerald-200">
+        {children}
+      </body>
     </html>
   );
 }

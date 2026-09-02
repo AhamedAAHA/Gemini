@@ -38,20 +38,20 @@ export default function Analyzer() {
 
   if (phase === "parsing") {
     return (
-      <div className="mx-auto flex max-w-xl flex-col items-center justify-center py-36 text-center">
-        <div className="glow-emerald-lg relative flex h-20 w-20 items-center justify-center rounded-3xl border border-emerald-500/40 bg-emerald-500/10">
+      <div className="section-container flex flex-col items-center justify-center py-36 text-center">
+        <div className="glow-emerald-lg relative flex h-24 w-24 items-center justify-center rounded-3xl border border-emerald-500/40 bg-emerald-500/10">
           <div className="scan-beam" />
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="text-emerald-400" aria-hidden="true">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="text-emerald-400" aria-hidden="true">
             <path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2" strokeLinecap="round" />
             <path d="M8 13v-2a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1z" />
             <path d="M12 13v5M8.5 10.5 7 7M15.5 10.5 17 7" strokeLinecap="round" />
           </svg>
         </div>
-        <h2 className="font-display mt-8 text-3xl font-extrabold tracking-tight text-slate-100">
-          Scanning line items…
+        <h2 className="font-display mt-8 text-3xl font-extrabold tracking-tight text-slate-100 sm:text-4xl">
+          Scanning statement line items…
         </h2>
-        <p className="mt-3 text-sm text-slate-400">
-          Running duplicate detection, CPT fee schedule benchmarks, and math validation.
+        <p className="mt-3 text-sm font-medium text-slate-400">
+          Running duplicate detection, CPT fee schedule benchmarks, and math validation checks.
         </p>
       </div>
     );
@@ -64,11 +64,11 @@ export default function Analyzer() {
       totalRecoverable: result.totalRecoverable,
     };
     return (
-      <div className="mx-auto max-w-6xl space-y-8 px-6 py-10">
+      <div className="section-container space-y-8 py-8">
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-6">
           <div>
-            <h1 className="font-display text-3xl font-extrabold tracking-tight text-slate-100">
-              Audit Report
+            <h1 className="font-display text-3xl font-extrabold tracking-tight text-slate-100 sm:text-4xl">
+              Audit Report Summary
             </h1>
             <p className="mt-1 font-mono text-xs text-slate-400">
               Generated {new Date(result.generatedAt).toLocaleString()} · ID: {result.bill.id}
@@ -76,9 +76,9 @@ export default function Analyzer() {
           </div>
           <button
             onClick={() => setPhase("input")}
-            className="rounded-xl border border-white/10 bg-slate-900/60 px-5 py-2.5 text-sm font-semibold text-slate-200 transition hover:border-emerald-500/50 hover:text-emerald-300"
+            className="rounded-xl border border-white/10 bg-slate-900/60 px-5 py-2.5 text-xs font-bold text-slate-200 transition hover:border-emerald-500/50 hover:text-emerald-300"
           >
-            ← Audit another bill
+            ← Audit another statement
           </button>
         </div>
 
@@ -89,10 +89,10 @@ export default function Analyzer() {
             <BillCard result={result} />
             <div>
               <h3 className="mb-4 font-mono text-xs font-bold uppercase tracking-widest text-slate-400">
-                Issues Identified ({result.flags.length})
+                Identified Billing Error Flags ({result.flags.length})
               </h3>
               {result.flags.length === 0 ? (
-                <div className="glass-card rounded-2xl border border-emerald-500/40 bg-emerald-500/10 p-6 text-sm font-medium text-emerald-300">
+                <div className="glass-card rounded-2xl border border-emerald-500/40 bg-emerald-500/10 p-6 text-sm font-semibold text-emerald-300">
                   ✓ No errors detected — this statement matches expected benchmarks.
                 </div>
               ) : (
@@ -115,17 +115,17 @@ export default function Analyzer() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-6 py-10">
+    <div className="section-container py-8">
       <div className="mb-10">
-        <div className="glass-pill mb-3 inline-flex items-center gap-2 rounded-full border border-emerald-500/30 px-3.5 py-1 text-xs font-semibold text-emerald-300">
+        <div className="glass-pill mb-3 inline-flex items-center gap-2.5 rounded-full border border-emerald-500/30 px-4 py-1.5 text-xs font-semibold text-emerald-300">
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
           Audit Lab v2.0
         </div>
-        <h1 className="font-display text-4xl font-extrabold tracking-tight sm:text-5xl">
+        <h1 className="font-display text-4xl font-extrabold tracking-tight text-slate-100 sm:text-5xl">
           Audit a Medical Bill
         </h1>
-        <p className="mt-3 max-w-2xl text-base text-slate-300">
-          Select a sample bill loaded with common hospital errors, or upload/paste your itemized statement to instantly calculate your recoverable savings.
+        <p className="mt-3 max-w-2xl text-base leading-relaxed text-slate-300">
+          Select a sample hospital statement loaded with common errors, or paste/upload your itemized bill to calculate recoverable overcharges immediately.
         </p>
       </div>
       <Uploader
